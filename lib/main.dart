@@ -122,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   "Notification with Custom Sound"
               ),
               onPressed: () {
-
+                notificationCustomSound();
               },
             ),
           ],
@@ -166,6 +166,35 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> notificationCustomSound() async{
+
+    var androidPlatformChannelSpecifics =
+    AndroidNotificationDetails(
+      'Notification Channel ID',
+      'Channel Name',
+      'Description',
+      sound: 'slow_spring_board',
+      importance: Importance.Max,
+      priority: Priority.High,
+    );
+
+    var iOSPlatformChannelSpecifics =
+    IOSNotificationDetails(
+      sound: 'slow_spring_board.aiff'
+    );
+
+    var platformChannelSpecifics =
+    NotificationDetails(
+        androidPlatformChannelSpecifics,
+        iOSPlatformChannelSpecifics
+    );
+
+    flutterNotificationPlugin.show(
+        0,
+        'New Post',
+        'How to show Local Notification',
+        platformChannelSpecifics,
+        payload: 'Custom Sound'
+    );
 
   }
 }
