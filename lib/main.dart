@@ -125,6 +125,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 notificationCustomSound();
               },
             ),
+
+            RaisedButton(
+              child: Text(
+                "Scheduled",
+              ),
+              onPressed: () {
+                notificationScheduled();
+              },
+            )
           ],
         )
       ),
@@ -226,5 +235,49 @@ class _MyHomePageState extends State<MyHomePage> {
         payload: 'Custom Sound'
     );
 
+  }
+
+  Future<void> notificationScheduled() async {
+    int hour = 19;
+    var ogValue = hour;
+    int minute = 05;
+
+    var time = Time(hour,minute,20);
+
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'repeatDailyAtTime channel id',
+      'repeatDailyAtTime channel name',
+      'repeatDailyAtTime description',
+      importance: Importance.Max,
+      sound: 'slow_spring_board',
+      ledColor: Color(0xFF3EB16F),
+      ledOffMs: 1000,
+      ledOnMs: 1000,
+      enableLights: true,
+    );
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+
+    await flutterNotificationPlugin.showDailyAtTime(4, 'show daily title',
+      'Daily notification shown',time, platformChannelSpecifics,payload: "Hello",);
+
+    print('Set at '+time.minute.toString()+" +"+time.hour.toString());
+
+//    for (int i = 0; i < (24 / 6).floor(); i++) {
+//      if ((hour + (6 * i) > 23)) {
+//        hour = hour + (6 * i) - 24;
+//      } else {
+//        hour = hour + (6 * i);
+//      }
+////      await flutterNotificationPlugin.showDailyAtTime(
+////          0,
+////          'Mediminder: Hello',
+////          'It is time',
+////          Time(hour, minute, 0),
+////          platformChannelSpecifics);
+//
+//      await flutterNotificationPlugin.showDailyAtTime(23, 'Hello', 'Bye all', Time(hour,minute,0), platformChannelSpecifics);
+//      hour = ogValue;
   }
 }
