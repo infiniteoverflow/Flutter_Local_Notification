@@ -113,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   "Notification without Sound"
               ),
               onPressed: () {
-
+                notificationNoSound();
               },
             ),
 
@@ -162,6 +162,36 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future notificationNoSound() async {
+
+    var androidPlatformChannelSpecifics =
+    AndroidNotificationDetails(
+      'Notification Channel ID',
+      'Channel Name',
+      'Description',
+      playSound: false,
+      importance: Importance.Max,
+      priority: Priority.High,
+    );
+
+    var iOSPlatformChannelSpecifics =
+    IOSNotificationDetails(
+        presentSound: false
+    );
+
+    var platformChannelSpecifics =
+    NotificationDetails(
+        androidPlatformChannelSpecifics,
+        iOSPlatformChannelSpecifics
+    );
+
+    flutterNotificationPlugin.show(
+        0,
+        'New Post',
+        'How to show Local Notification',
+        platformChannelSpecifics,
+        payload: 'No Sound'
+    );
+
 
   }
 
