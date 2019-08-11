@@ -58,8 +58,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
     var flutterNotificationPlugin = new FlutterLocalNotificationsPlugin();
 
-    flutterNotificationPlugin.initialize(initializationSettings);
+    flutterNotificationPlugin.initialize(initializationSettings,onSelectNotification: onSelectNotification);
 
+  }
+
+  Future onSelectNotification(String payload) async{
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(
+          "Hello Everyone"
+        ),
+        content: Text(
+          "This is a Local Notification"
+        ),
+      )
+    );
   }
 
   @override
