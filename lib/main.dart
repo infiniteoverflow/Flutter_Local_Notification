@@ -47,6 +47,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  FlutterLocalNotificationsPlugin flutterNotificationPlugin;
+
   @override
   void initState() {
 
@@ -56,9 +58,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
     var initializationSettings = new InitializationSettings(initializationSettingsAndroid, initializationSettingsIOS);
 
-    var flutterNotificationPlugin = new FlutterLocalNotificationsPlugin();
+    flutterNotificationPlugin = FlutterLocalNotificationsPlugin();
 
     flutterNotificationPlugin.initialize(initializationSettings,onSelectNotification: onSelectNotification);
+
 
   }
 
@@ -70,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
           "Hello Everyone"
         ),
         content: Text(
-          "This is a Local Notification"
+          "$payload"
         ),
       )
     );
@@ -101,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 "Notification with Default Sound"
               ),
               onPressed: () {
-
+                notificationDefaultSound();
               },
             ),
 
@@ -131,6 +134,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future notificationDefaultSound() async{
 
+    var androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
+          'Notification Channel ID',
+          'Channel Name',
+          'Description',
+          importance: Importance.Max,
+          priority: Priority.High,
+        );
+
+    var iOSPlatformChannelSpecifics =
+        IOSNotificationDetails();
+
+    var platformChannelSpecifics =
+        NotificationDetails(
+          androidPlatformChannelSpecifics,
+          iOSPlatformChannelSpecifics
+        );
+
+    flutterNotificationPlugin.show(
+      0,
+      'New Post',
+      'How to show Local Notification',
+      platformChannelSpecifics,
+      payload: 'Default Sound'
+    );
   }
 
   Future notificationNoSound() async {
