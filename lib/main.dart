@@ -93,10 +93,51 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Text(
-          "Hello World"
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            RaisedButton(
+              child: Text(
+                "Notification with Default Sound"
+              ),
+              onPressed: () {
+
+              },
+            ),
+
+            RaisedButton(
+              child: Text(
+                  "Notification without Sound"
+              ),
+              onPressed: () {
+
+              },
+            ),
+
+            RaisedButton(
+              child: Text(
+                  "Notification with Custom Sound"
+              ),
+              onPressed: () {
+
+              },
+            ),
+          ],
         )
       ),
     );
+  }
+
+
+  Future notificationDefaultSound() async{
+
+  }
+
+  Future notificationNoSound() async {
+
+  }
+
+  Future<void> notificationCustomSound() async{
+
   }
 }
